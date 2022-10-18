@@ -1,5 +1,5 @@
 =======
-# Decentratwitter
+# Artsy
 
 ## Technology Stack & Tools
 
