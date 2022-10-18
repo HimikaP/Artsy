@@ -11,7 +11,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Dapp University
+          Artsy 
         </a>
       </nav>
       <div className="container-fluid mt-5">
