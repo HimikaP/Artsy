@@ -41,7 +41,6 @@ contract Decentratwitter is ERC721URIStorage {
         tokenCount++;
         _safeMint(msg.sender, tokenCount);
         _setTokenURI(tokenCount, _tokenURI);
-        setProfile(tokenCount);
         return (tokenCount);
     }
 }
