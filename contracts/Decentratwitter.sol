@@ -53,4 +53,49 @@ contract Decentratwitter is ERC721URIStorage {
         );
         profiles[msg.sender] = _id;
     }
+
+      function uploadPost(string memory _postHash) external {
+        // Check that the user owns an nft
+        require(
+            balanceOf(msg.sender) > 0,
+            "Must own a decentratwitter nft to post"
+        );
+        // Make sure the post hash exists
+        require(bytes(_postHash).length > 0, "Cannot pass an empty hash");
+        // Increment post count
+        postCount++;
+        // Add post to the contract
+        posts[postCount] = Post(postCount, _postHash, 0, payable(msg.sender));
+        // Trigger an event
+        emit PostCreated(postCount, _postHash, 0, payable(msg.sender));
+    }
+
+    function tipPostOwner(uint256 _id) external payable {
+        // Make sure the id is valid
+        require(_id > 0 && _id <= postCount, "Invalid post id");
+        // Fetch the post
+        Post memory _post = posts[_id];
+        require(_post.author != msg.sender, "Cannot tip your own post");
+        // Pay the author by sending them Ether
+        _post.author.transfer(msg.value);
+        // Increment the tip amount
+        _post.tipAmount += msg.value;
+        // Update the image
+        posts[_id] = _post;
+        // Trigger an event
+        emit PostTipped(_id, _post.hash, _post.tipAmount, _post.author);
+    }
+
+    function getAllPosts() external view returns (Post[] memory _posts){
+        _posts = new Post[](postCount);
+
+        for(uint i=0;i<_posts.lenght;i++){
+            _posts[i] = _posts[i+1];
+            
+        }
+    }
+
+    function getMyNfts() external view returns (uint56 memory _ids){
+        
+    }
 }
