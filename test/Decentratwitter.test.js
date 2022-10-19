@@ -24,6 +24,20 @@ describe("Decentratwitter", function () {
       expect(await decentratwitter.symbol()).to.equal(nftSymbol);
     });
   })
-  
+  describe('Minting NFTs' , async function(){
+    expect(await decentratwitter.tokenCount()).to.equal(1);
+    expect(await decentratwitter.balanceOf(user1.address)).to.equal(1);
+    expect(await decentratwitter.tokenURI(1)).to.equal(URI);
+
+
+  await decentratwitter.connect(user2).mint(URI)
+  expect(await decentratwitter.tokenCount()).to.equal(2);
+  expect(await decentratwitter.balanceOf(user2.address)).to.equal(1);
+  expect(await decentratwitter.tokenURI(2)).to.equal(URI);
+})
+
+describe('Setting profiles' , async ()=>{
+    it("Should allow users to select which NFT they own to represent their profile")
+})
 
 } );

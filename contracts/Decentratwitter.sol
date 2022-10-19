@@ -43,4 +43,14 @@ contract Decentratwitter is ERC721URIStorage {
         _setTokenURI(tokenCount, _tokenURI);
         return (tokenCount);
     }
+
+    // to check that the user owns that NFT
+    function setProfile(uint256 _id) public{
+        require(
+            ownerOf(_id) == msg.sender ,
+            "Must own the NFT you want to set as profile"
+        
+        );
+        profiles[msg.sender] = _id;
+    }
 }
